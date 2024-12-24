@@ -41,7 +41,7 @@ public class EntityToDtoMapper {
     }
 
 
-    public CustomerReadOnlyDTO mapToCustomerReadOnlyDTO(Customer customer) {
+    public  CustomerReadOnlyDTO mapToCustomerReadOnlyDTO(Customer customer) {
         UserReadOnlyDTO userDTO = mapToUserReadOnlyDTO(customer.getUser());
         return CustomerReadOnlyDTO.builder()
                 .user(userDTO)
