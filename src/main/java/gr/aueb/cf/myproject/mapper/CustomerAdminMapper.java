@@ -6,10 +6,14 @@ import gr.aueb.cf.myproject.dto.UserInsertDTO;
 import gr.aueb.cf.myproject.model.Admin;
 import gr.aueb.cf.myproject.model.Customer;
 import gr.aueb.cf.myproject.model.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class CustomerAdminMapper {
+
+
 
     private User mapToUserEntity(UserInsertDTO dto) {
         User user = new User();
