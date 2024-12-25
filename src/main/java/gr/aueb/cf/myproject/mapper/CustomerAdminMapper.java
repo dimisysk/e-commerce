@@ -6,7 +6,6 @@ import gr.aueb.cf.myproject.dto.UserInsertDTO;
 import gr.aueb.cf.myproject.model.Admin;
 import gr.aueb.cf.myproject.model.Customer;
 import gr.aueb.cf.myproject.model.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
