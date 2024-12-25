@@ -52,4 +52,13 @@ public class ProductSpecification {
         };
     }
 
+    public static Specification<Product> productStringFieldLike(String field, String value) {
+        return (root, query, criteriaBuilder) -> {
+            if (field == null || field.isBlank()) {
+                return criteriaBuilder.isTrue(criteriaBuilder.literal(true));
+            }
+            return criteriaBuilder.like(root.get(field), "%" + value.toUpperCase() + "%");
+        };
+    }
+
 }
