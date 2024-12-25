@@ -3,9 +3,9 @@ package gr.aueb.cf.myproject.mapper;
 import gr.aueb.cf.myproject.dto.CustomerReadOnlyDTO;
 import gr.aueb.cf.myproject.dto.UserReadOnlyDTO;
 import gr.aueb.cf.myproject.dto.AdminReadOnlyDTO;
+import gr.aueb.cf.myproject.model.Admin;
 import gr.aueb.cf.myproject.model.Customer;
 import gr.aueb.cf.myproject.model.User;
-import gr.aueb.cf.myproject.model.Admin;
 import org.springframework.stereotype.Component;
 
 @Component
