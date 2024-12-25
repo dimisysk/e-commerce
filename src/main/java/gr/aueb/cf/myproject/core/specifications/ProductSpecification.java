@@ -43,4 +43,13 @@ public class ProductSpecification {
         };
     }
 
+    public static Specification<Product> productPriceIsGreaterThan(Float price) {
+        return (root, query, criteriaBuilder) -> {
+            if (price == null) {
+                return criteriaBuilder.isTrue(criteriaBuilder.literal(true));
+            }
+            return criteriaBuilder.greaterThanOrEqualTo(root.get("price"), price);
+        };
+    }
+
 }
