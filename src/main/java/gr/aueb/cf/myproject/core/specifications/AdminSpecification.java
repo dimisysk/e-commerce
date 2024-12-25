@@ -2,6 +2,7 @@ package gr.aueb.cf.myproject.core.specifications;
 
 import gr.aueb.cf.myproject.core.enums.GenderType;
 import gr.aueb.cf.myproject.model.Admin;
+import gr.aueb.cf.myproject.model.Customer;
 import gr.aueb.cf.myproject.model.User;
 import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
@@ -49,6 +50,13 @@ public class AdminSpecification {
             }
             return criteriaBuilder.like(criteriaBuilder.upper(root.get(field)), "%" + value.toUpperCase() + "%");
         });
+    }
+
+    public static Specification<Admin> adminWithFilters(String ssn, Boolean isActive, GenderType gender) {
+        return Specification.where(adminUserSsnIs(ssn))
+                .and(adminUserIsActive(isActive))
+                .and(adminUserGenderIs(gender));
+
     }
 
 }

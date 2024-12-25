@@ -52,4 +52,10 @@ public class CustomerSpecification {
         });
     }
 
+    public static Specification<Customer> customerWithFilters(String ssn, Boolean isActive, GenderType gender) {
+        return Specification.where(customerUserSsnIs(ssn))
+                .and(customerUserIsActive(isActive))
+                .and(customerUserGenderIs(gender));
+
+    }
 }

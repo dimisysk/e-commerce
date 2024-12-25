@@ -58,4 +58,12 @@ public class TransactionSpecification {
         };
     }
 
+    public static Specification<Transaction> transactionWithFilters(Status status, Float minAmount, LocalDateTime afterDate, Long userId) {
+        return Specification.where(transactionStatusIs(status))
+                .and(transactionAmountGreaterThan(minAmount))
+                .and(transactionCreatedAtAfter(afterDate))
+                .and(transactionUserIdIs(userId));
+    }
+
+
 }

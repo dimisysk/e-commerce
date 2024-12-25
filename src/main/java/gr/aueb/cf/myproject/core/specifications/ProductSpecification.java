@@ -61,4 +61,12 @@ public class ProductSpecification {
         };
     }
 
+    public static Specification<Product> productWithFilters(String name, String category, Boolean isAvailable, Float maxPrice) {
+        return Specification.where(ProductSpecification.productNameIs(name))
+                .and(ProductSpecification.productCategoryIs(category))
+                .and(ProductSpecification.productIsAvailable(isAvailable))
+                .and(ProductSpecification.productPriceIsLessThan(maxPrice));
+    }
+
+
 }
