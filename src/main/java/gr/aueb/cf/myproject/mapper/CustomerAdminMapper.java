@@ -36,10 +36,8 @@ public class CustomerAdminMapper {
 
     public Customer mapToCustomerEntity(CustomerInsertDTO customerInsertDTO) {
         Customer customer = new Customer();
-        // Ρυθμίζουμε το μοναδικό πεδίο του Customer
         customer.setDiscountCardNumber(customerInsertDTO.getDiscountCardNumber());
 
-        // Μετατροπή του user
         User user = mapToUserEntity(customerInsertDTO.getUser());
         customer.setUser(user);
 
