@@ -1,10 +1,14 @@
 package gr.aueb.cf.myproject.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.UUID;
 
+@Getter
+@Setter
 @MappedSuperclass
 public abstract class BaseRole extends AbstractEntity{
     @Id
