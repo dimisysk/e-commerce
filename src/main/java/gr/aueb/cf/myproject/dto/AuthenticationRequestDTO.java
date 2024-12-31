@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 
 
 @Data
-Builder
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class AuthenticationRequestDTO {
 
 
