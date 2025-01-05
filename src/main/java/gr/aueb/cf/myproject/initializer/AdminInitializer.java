@@ -5,6 +5,7 @@ import gr.aueb.cf.myproject.model.Admin;
 import gr.aueb.cf.myproject.model.User;
 import gr.aueb.cf.myproject.repository.AdminRepository;
 import gr.aueb.cf.myproject.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,7 @@ public class AdminInitializer implements CommandLineRunner {
     private UserRepository userRepository;
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
         if (userRepository.findByUsername("admin").isEmpty()) {
             // Δημιουργία νέου admin αν δεν υπάρχει ήδη
