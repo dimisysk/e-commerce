@@ -1,5 +1,6 @@
 package gr.aueb.cf.myproject.mapper;
 
+import gr.aueb.cf.myproject.core.enums.Role;
 import gr.aueb.cf.myproject.dto.AdminInsertDTO;
 import gr.aueb.cf.myproject.dto.CustomerInsertDTO;
 import gr.aueb.cf.myproject.dto.UserInsertDTO;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 //@RequiredArgsConstructor
-public class CustomerAdminMapper {
+public class CustomerMapper {
 
 
 
@@ -28,8 +29,6 @@ public class CustomerAdminMapper {
         user.setCity(dto.getCity());
         user.setZip(dto.getZip());
         user.setGender(dto.getGender());
-        user.setRole(dto.getRole());
-        user.setIsActive(dto.getIsActive());
         return user;
     }
 
@@ -39,19 +38,15 @@ public class CustomerAdminMapper {
         customer.setDiscountCardNumber(customerInsertDTO.getDiscountCardNumber());
 
         User user = mapToUserEntity(customerInsertDTO.getUser());
+        user.setRole(Role.CUSTOMER);
+        user.setIsActive(true);
         customer.setUser(user);
 
         return customer;
     }
 
 
-    public Admin mapToAdminEntity(AdminInsertDTO adminInsertDTO) {
-        Admin admin = new Admin();
 
-        // Μετατροπή του user
-        User user = mapToUserEntity(adminInsertDTO.getUser());
-        admin.setUser(user);
 
-        return admin;
-    }
+
 }
