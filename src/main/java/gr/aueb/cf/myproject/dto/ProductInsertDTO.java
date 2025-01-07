@@ -16,4 +16,5 @@ public class ProductInsertDTO {
     private int quantity;
     private Float price;
     private String imageName;
+    private byte[] imageData;
 }
