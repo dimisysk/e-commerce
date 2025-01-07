@@ -8,6 +8,8 @@ import gr.aueb.cf.myproject.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,6 +17,12 @@ public class AdminInitializer implements CommandLineRunner {
 
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
+
     @Autowired
     private UserRepository userRepository;
 
@@ -25,7 +33,7 @@ public class AdminInitializer implements CommandLineRunner {
             // Δημιουργία νέου admin αν δεν υπάρχει ήδη
             User adminUser = new User();
             adminUser.setUsername("admin");
-            adminUser.setPassword("admin1234");
+            adminUser.setPassword(passwordEncoder.encode("admin1234"));
             adminUser.setRole(Role.ADMIN);
             adminUser.setFirstName("firstname");
             adminUser.setLastName("lastname");
