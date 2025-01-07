@@ -42,6 +42,7 @@ public class UserInsertDTO {
     private String address;
 
 
+    @NotNull(message = "address Number must not be null")
     private String addressNumber;
 
     @NotNull(message = "city must not be null")
