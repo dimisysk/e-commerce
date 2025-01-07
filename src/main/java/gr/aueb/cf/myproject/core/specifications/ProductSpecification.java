@@ -5,14 +5,14 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class ProductSpecification {
 
-    public ProductSpecification() {}
 
-    public static Specification<Product> productNameIs(String name) {
+
+    public static Specification<Product> productBrandIs(String brand) {
         return (root, query, criteriaBuilder) -> {
-            if (name == null || name.isBlank()) {
+            if (brand == null || brand.isBlank()) {
                 return criteriaBuilder.isTrue(criteriaBuilder.literal(true));
             }
-            return criteriaBuilder.like(root.get("name"), "%" + name + "%");
+            return criteriaBuilder.like(root.get("name"), "%" + brand + "%");
         };
     }
 
@@ -25,6 +25,8 @@ public class ProductSpecification {
         };
     }
 
+
+
     public static Specification<Product> productIsAvailable(Boolean isAvailable) {
         return (root, query, criteriaBuilder) -> {
             if (isAvailable == null) {
@@ -34,12 +36,13 @@ public class ProductSpecification {
         };
     }
 
+
     public static Specification<Product> productPriceIsLessThan(Float price) {
         return (root, query, criteriaBuilder) -> {
             if (price == null) {
                 return criteriaBuilder.isTrue(criteriaBuilder.literal(true));
             }
-            return criteriaBuilder.lessThan(root.get("price"), price);
+            return criteriaBuilder.lessThanOrEqualTo(root.get("price"), price);
         };
     }
 
@@ -54,18 +57,20 @@ public class ProductSpecification {
 
     public static Specification<Product> productStringFieldLike(String field, String value) {
         return (root, query, criteriaBuilder) -> {
-            if (field == null || field.isBlank()) {
+            if (value == null || value.isBlank()) {
                 return criteriaBuilder.isTrue(criteriaBuilder.literal(true));
             }
-            return criteriaBuilder.like(root.get(field), "%" + value.toUpperCase() + "%");
+            return criteriaBuilder.like(criteriaBuilder.upper(root.get(field)), "%" + value.toUpperCase() + "%");
         };
     }
 
-    public static Specification<Product> productWithFilters(String name, String category, Boolean isAvailable, Float maxPrice) {
-        return Specification.where(ProductSpecification.productNameIs(name))
+    public static Specification<Product> productWithFilters(String brand, String category, Boolean isAvailable,Float minPrice, Float maxPrice) {
+        return Specification.where(ProductSpecification.productBrandIs(brand))
                 .and(ProductSpecification.productCategoryIs(category))
+                .and(ProductSpecification.productPriceIsGreaterThan(maxPrice))
                 .and(ProductSpecification.productIsAvailable(isAvailable))
                 .and(ProductSpecification.productPriceIsLessThan(maxPrice));
+
     }
 
 
