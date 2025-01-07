@@ -34,7 +34,7 @@ public class CustomerRestController {
     @GetMapping("/customers")
     public ResponseEntity<Page<CustomerReadOnlyDTO>> getAllCustomer(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "1") int size ) {
+            @RequestParam(defaultValue = "10") int size ) {
         Page<CustomerReadOnlyDTO> customersPage = customerService.getPaginatedCustomers(page,size);
         return new ResponseEntity<>(customersPage, HttpStatus.OK);
     }
@@ -73,21 +73,3 @@ public class CustomerRestController {
     }
 
 }
-//public ResponseEntity<TeacherReadOnlyDTO> addTeacher(@Valid @RequestBody TeacherInsertDTO insertDTO, BindingResult bindingResult)  {
-//    insertValidator.validate(insertDTO,bindingResult);
-//    if (bindingResult.hasErrors()) {
-//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//    }
-//    try {
-//        Teacher teacher = teacherService.insertTeacher(insertDTO);
-//        TeacherReadOnlyDTO teacherReadOnlyDTO = Mapper.mapToReadOnlyDTO(teacher);
-//        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .path("/{id}")
-//                .buildAndExpand(teacherReadOnlyDTO.getId())
-//                .toUri();
-//        return ResponseEntity.created(location).body(teacherReadOnlyDTO);
-//
-//    } catch (Exception e) {
-//        return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
-//    }
-//}
