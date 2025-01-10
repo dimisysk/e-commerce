@@ -11,5 +11,7 @@ import java.util.Optional;
 public interface CustomerRepository extends JpaRepository<Customer, Long>, JpaSpecificationExecutor<Customer> {
 
 
-    Optional<Customer> findByDiscountCardNumber(Integer discountCardNumber);
+    Optional<Customer> findByDiscountCardNumber(String discountCardNumber);
+
+
 }
