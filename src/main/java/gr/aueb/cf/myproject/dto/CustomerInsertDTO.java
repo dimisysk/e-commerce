@@ -16,5 +16,6 @@ public class CustomerInsertDTO {
     @NotNull(message = "User details must not be null")
     private UserInsertDTO user;
 
-    private Integer discountCardNumber;
+    @NotNull(message = "User discount's Card Number must not be null")
+    private String discountCardNumber;
 }
