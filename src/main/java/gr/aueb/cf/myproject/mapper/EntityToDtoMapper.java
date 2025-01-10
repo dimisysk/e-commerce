@@ -36,7 +36,6 @@ public class EntityToDtoMapper {
                 .zip(user.getZip())
                 .gender(user.getGender())
                 .role(user.getRole())
-                .isActive(user.getIsActive())
                 .build();
     }
 
