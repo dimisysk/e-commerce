@@ -2,14 +2,17 @@ package gr.aueb.cf.myproject.service;
 
 
 import gr.aueb.cf.myproject.core.exceptions.AppObjectAlreadyExists;
+import gr.aueb.cf.myproject.core.exceptions.AppObjectNotFoundException;
 import gr.aueb.cf.myproject.core.filters.CustomerFilters;
 import gr.aueb.cf.myproject.core.filters.Paginated;
 import gr.aueb.cf.myproject.core.specifications.CustomerSpecification;
 import gr.aueb.cf.myproject.dto.CustomerInsertDTO;
 import gr.aueb.cf.myproject.dto.CustomerReadOnlyDTO;
-import gr.aueb.cf.myproject.mapper.CustomerAdminMapper;
+import gr.aueb.cf.myproject.dto.UserReadOnlyDTO;
+import gr.aueb.cf.myproject.mapper.CustomerMapper;
 import gr.aueb.cf.myproject.mapper.EntityToDtoMapper;
 import gr.aueb.cf.myproject.model.Customer;
+import gr.aueb.cf.myproject.model.User;
 import gr.aueb.cf.myproject.repository.AdminRepository;
 import gr.aueb.cf.myproject.repository.CustomerRepository;
 import gr.aueb.cf.myproject.repository.UserRepository;
@@ -20,6 +23,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,21 +34,24 @@ public class CustomerService {
 
     private CustomerRepository customerRepository;
     private UserRepository userRepository;
-    private CustomerAdminMapper customerAdminMapper;
+    private CustomerMapper customerMapper;
     private EntityToDtoMapper entityToDtoMapper;
+    private PasswordEncoder passwordEncoder;
 
 
     @Autowired
     public CustomerService(CustomerRepository customerRepository,
                            UserRepository userRepository,
-                           CustomerAdminMapper customerAdminMapper,
+                           CustomerMapper customerMapper,
                            EntityToDtoMapper entityToDtoMapper,
-                           AdminRepository adminRepository)
+                           PasswordEncoder passwordEncoder
+                           )
     {
         this.customerRepository = customerRepository;
         this.userRepository = userRepository;
-        this.customerAdminMapper = customerAdminMapper;
+        this.customerMapper = customerMapper;
         this.entityToDtoMapper = entityToDtoMapper;
+        this.passwordEncoder = passwordEncoder;
 
     }
 
@@ -58,8 +65,8 @@ public class CustomerService {
             throw new AppObjectAlreadyExists("DiscountCardNumber", "Discount Card with the Number" +customerInsertDTO.getDiscountCardNumber() + "already exists");
         }
 
-        Customer customer = customerAdminMapper.mapToCustomerEntity(customerInsertDTO);
-
+        Customer customer = customerMapper.mapToCustomerEntity(customerInsertDTO);
+        customer.getUser().setPassword(passwordEncoder.encode(customer.getUser().getPassword()));
         Customer savedCustomer = customerRepository.save(customer);
 
         return entityToDtoMapper.mapToCustomerReadOnlyDTO(savedCustomer);
@@ -104,4 +111,24 @@ public class CustomerService {
                 .and(CustomerSpecification.customerUserIsActive(filters.getActive()));
     }
 
+    public void deleteCustomer(Long id) {
+        return;
+    }
+    public CustomerReadOnlyDTO updateCustomer(Long id, CustomerInsertDTO customerDTO) {
+        return null;
+    }
+
+    public UserReadOnlyDTO getCustomerById(Long id) throws AppObjectNotFoundException {
+        // Βρες τον χρήστη μέσω του ID
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new AppObjectNotFoundException("Customer", "Customer not found with ID: " + id));
+
+        // Μετέτρεψε τον User σε UserReadOnlyDTO μέσω του Mapper
+        return entityToDtoMapper.mapToUserReadOnlyDTO(user);
+    }
+
+
 }
+
+
+
