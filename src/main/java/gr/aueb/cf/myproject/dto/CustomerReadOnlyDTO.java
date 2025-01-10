@@ -15,6 +15,5 @@ public class CustomerReadOnlyDTO {
 
     @NotNull(message = "User details must not be null")
     private UserReadOnlyDTO user;
-    private String uuid;
-    private Integer discountCardNumber;
+    private String discountCardNumber;
 }
