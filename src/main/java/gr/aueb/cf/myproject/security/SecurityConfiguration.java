@@ -43,8 +43,9 @@ public class SecurityConfiguration {
                 .exceptionHandling(exceptions -> exceptions.authenticationEntryPoint(myCustomAuthenticationEntryPoint()))
                 .exceptionHandling(exceptions -> exceptions.accessDeniedHandler(myCustomAccessDeniedHandler()))
                 .authorizeHttpRequests(requests -> requests
-                        .requestMatchers("/api/save-customer").permitAll()
-                        .requestMatchers("/api/customer/login").permitAll()
+                        .requestMatchers("/api/customers/create").permitAll()
+                        .requestMatchers("/api/check-duplicate-username").permitAll()
+                        .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/auth/authenticate").permitAll()
                         .requestMatchers("/api/customer/**").hasAnyAuthority(Role.CUSTOMER.name(), Role.ADMIN.name())
                         .requestMatchers(("/api/admin/**")).hasRole(Role.ADMIN.name())
