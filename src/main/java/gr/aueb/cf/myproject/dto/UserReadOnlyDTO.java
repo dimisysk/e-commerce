@@ -52,7 +52,7 @@ public class UserReadOnlyDTO {
     private Role role;
 
 
-    @NotNull(message = "this field must not be null")
-    private Boolean isActive;
+//    @NotNull(message = "this field must not be null")
+//    private Boolean isActive;
 
 }
