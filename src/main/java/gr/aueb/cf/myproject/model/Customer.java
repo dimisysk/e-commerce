@@ -14,6 +14,7 @@ import java.util.UUID;
 @Table(name = "customers")
 public class Customer extends BaseRole {
 
-    private Integer discountCardNumber;
+    @NonNull
+    private String discountCardNumber;
 
 }
