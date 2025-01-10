@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/auth/authenticate").permitAll()
                         .requestMatchers("/api/customer/**").hasAnyAuthority(Role.CUSTOMER.name(), Role.ADMIN.name())
-                        .requestMatchers(("/api/admin/**")).hasRole(Role.ADMIN.name())
+                        .requestMatchers(("/api/admin/**")).hasAnyAuthority(Role.ADMIN.name())
                         .requestMatchers("/**").permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
