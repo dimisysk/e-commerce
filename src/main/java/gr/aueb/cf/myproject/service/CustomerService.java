@@ -85,7 +85,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public List<Customer> getTeachers() {
+    public List<Customer> getCustomers() {
         return customerRepository.findAll();
     }
 
@@ -105,15 +105,20 @@ public class CustomerService {
 
     private Specification<Customer> getSpecsFromFilters(CustomerFilters filters) {
         return Specification
-                .where(CustomerSpecification.customerStringFieldLike("uuid", filters.getUuid()))
+                .where(CustomerSpecification.customerStringFieldLike("lastName", filters.getLastName()))
                 .and(CustomerSpecification.customerUserGenderIs(filters.getUserGender()))
                 .and(CustomerSpecification.customerUserSsnIs(filters.getUserSsn()))
                 .and(CustomerSpecification.customerUserIsActive(filters.getActive()));
     }
 
-    public void deleteCustomer(Long id) {
-        return;
+    @Transactional
+    public void deleteCustomer(Long id) throws AppObjectNotFoundException {
+        if (!customerRepository.existsById(id)) {
+            throw new AppObjectNotFoundException("Customer", "Customer not found with ID: " + id);
+        }
+        customerRepository.deleteById(id);
     }
+
     public CustomerReadOnlyDTO updateCustomer(Long id, CustomerInsertDTO customerDTO) {
         return null;
     }
