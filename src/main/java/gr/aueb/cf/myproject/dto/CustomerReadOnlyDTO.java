@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CustomerReadOnlyDTO {
 
-    @NotNull(message = "User details must not be null")
     private UserReadOnlyDTO user;
     private String discountCardNumber;
+    private String uuid;
+    private Long id;
 }
