@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 public class ProductReadOnlyDTO {
     private Long id;
-    private String uuid; // Αν χρησιμοποιείτε UUIDs
+//    private String uuid; // Αν χρησιμοποιείτε UUIDs
     private String name;
     private String description;
     private String category;
@@ -17,6 +17,6 @@ public class ProductReadOnlyDTO {
     private Boolean isAvailable;
     private int quantity;
     private Float price;
-    private String imageName;
-    private byte[] imageData;
+//    private String imageName;
+//    private byte[] imageData;
 }
