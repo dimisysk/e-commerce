@@ -54,8 +54,8 @@ public class UserInsertDTO {
     @NotNull(message = "gender must not be null")
     private GenderType gender;
 
-    @NotNull(message = "role must not be null")
-    private Role role;
+    @Builder.Default
+    private Role role = Role.CUSTOMER;
 
     @Builder.Default
     private Boolean isActive = true;
