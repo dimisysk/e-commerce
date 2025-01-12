@@ -119,9 +119,30 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
-    public CustomerReadOnlyDTO updateCustomer(Long id, CustomerInsertDTO customerDTO) {
-        return null;
+    @Transactional
+    public CustomerReadOnlyDTO updateCustomer(Long id, CustomerInsertDTO customerDTO) throws AppObjectNotFoundException {
+        // Εύρεση υπάρχοντος πελάτη
+        Customer existingCustomer = customerRepository.findById(id)
+                .orElseThrow(() -> new AppObjectNotFoundException("Customer", "Customer not found with ID: " + id));
+
+        // Ενημέρωση πεδία του πελάτη
+        existingCustomer.setDiscountCardNumber(customerDTO.getDiscountCardNumber());
+        existingCustomer.getUser().setFirstName(customerDTO.getUser().getFirstName());
+        existingCustomer.getUser().setLastName(customerDTO.getUser().getLastName());
+        existingCustomer.getUser().setEmail(customerDTO.getUser().getEmail());
+        existingCustomer.getUser().setPhone(customerDTO.getUser().getPhone());
+        existingCustomer.getUser().setAddress(customerDTO.getUser().getAddress());
+        existingCustomer.getUser().setAddressNumber(customerDTO.getUser().getAddressNumber());
+        existingCustomer.getUser().setCity(customerDTO.getUser().getCity());
+        existingCustomer.getUser().setZip(customerDTO.getUser().getZip());
+        existingCustomer.getUser().setGender(customerDTO.getUser().getGender());
+        existingCustomer.getUser().setRole(customerDTO.getUser().getRole());
+
+        Customer updatedCustomer = customerRepository.save(existingCustomer);
+
+        return entityToDtoMapper.mapToCustomerReadOnlyDTO(updatedCustomer);
     }
+
 
     public UserReadOnlyDTO getCustomerById(Long id) throws AppObjectNotFoundException {
         // Βρες τον χρήστη μέσω του ID
