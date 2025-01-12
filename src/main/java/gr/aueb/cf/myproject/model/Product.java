@@ -35,10 +35,10 @@ public class Product extends AbstractEntity{
 
     private int quantity;
     private Float price;
-    private String imageName;
-
-    @Lob
-    private byte[] imageData;
+//    private String imageName;
+//
+//    @Lob
+//    private byte[] imageData;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TransactionProduct> transactionProducts;
