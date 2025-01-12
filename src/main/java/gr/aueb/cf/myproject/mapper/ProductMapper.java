@@ -17,14 +17,14 @@ public class ProductMapper {
                 .isAvailable(productInsertDTO.getIsAvailable())
                 .quantity(productInsertDTO.getQuantity())
                 .price(productInsertDTO.getPrice())
-                .imageName(productInsertDTO.getImageName())
+//                .imageName(productInsertDTO.getImageName())
                 .build();
     }
 
     public ProductReadOnlyDTO mapToProductReadOnlyDTO(Product product) {
         return ProductReadOnlyDTO.builder()
                 .id(product.getId())
-                .uuid(product.getUuid())
+//                .uuid(product.getUuid())
                 .name(product.getName())
                 .description(product.getDescription())
                 .category(product.getCategory())
@@ -32,7 +32,7 @@ public class ProductMapper {
                 .isAvailable(product.getIsAvailable())
                 .quantity(product.getQuantity())
                 .price(product.getPrice())
-                .imageName(product.getImageName())
+//                .imageName(product.getImageName())
                 .build();
     }
 }
