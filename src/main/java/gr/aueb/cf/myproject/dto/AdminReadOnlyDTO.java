@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class AdminReadOnlyDTO {
 
-    @NotNull(message = "User details must not be null")
     private UserReadOnlyDTO user;
     private String uuid;
 }
