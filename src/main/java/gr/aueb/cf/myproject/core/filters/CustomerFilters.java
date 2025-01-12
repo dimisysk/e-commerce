@@ -12,11 +12,14 @@ import org.springframework.lang.Nullable;
 @AllArgsConstructor
 @Builder
 public class CustomerFilters extends GenericFilters{
-    @Nullable
-    private String uuid;
+//    @Nullable
+//    private String uuid;
 
     @Nullable
     private String userSsn;
+
+    @Nullable
+    private String lastName;
 
     @Nullable
     private GenderType userGender;
