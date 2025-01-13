@@ -33,7 +33,7 @@ public class AdminInitializer implements CommandLineRunner {
             // Δημιουργία νέου admin αν δεν υπάρχει ήδη
             User adminUser = new User();
             adminUser.setUsername("admin");
-            adminUser.setPassword(passwordEncoder.encode("admin1234"));
+            adminUser.setPassword(passwordEncoder.encode("Admin-1234"));
             adminUser.setRole(Role.ADMIN);
             adminUser.setFirstName("firstname");
             adminUser.setLastName("lastname");
