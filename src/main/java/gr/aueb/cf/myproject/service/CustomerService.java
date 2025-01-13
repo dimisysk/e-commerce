@@ -127,6 +127,7 @@ public class CustomerService {
 
         // Ενημέρωση πεδία του πελάτη
         existingCustomer.setDiscountCardNumber(customerDTO.getDiscountCardNumber());
+        existingCustomer.getUser().setIsActive(customerDTO.getUser().getIsActive());
         existingCustomer.getUser().setFirstName(customerDTO.getUser().getFirstName());
         existingCustomer.getUser().setLastName(customerDTO.getUser().getLastName());
         existingCustomer.getUser().setEmail(customerDTO.getUser().getEmail());
@@ -137,6 +138,10 @@ public class CustomerService {
         existingCustomer.getUser().setZip(customerDTO.getUser().getZip());
         existingCustomer.getUser().setGender(customerDTO.getUser().getGender());
         existingCustomer.getUser().setRole(customerDTO.getUser().getRole());
+
+        if (customerDTO.getUser().getPassword() != null && !customerDTO.getUser().getPassword().isEmpty()) {
+            existingCustomer.getUser().setPassword(passwordEncoder.encode(customerDTO.getUser().getPassword()));
+        }
 
         Customer updatedCustomer = customerRepository.save(existingCustomer);
 
