@@ -13,8 +13,9 @@ import lombok.Setter;
 @Setter
 public class CustomerInsertDTO {
 
-    @NotNull(message = "User details must not be null")
+
     private UserInsertDTO user;
+    private Long id;
 
     @NotNull(message = "User discount's Card Number must not be null")
     private String discountCardNumber;

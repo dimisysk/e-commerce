@@ -36,6 +36,7 @@ public class CustomerMapper {
     public Customer mapToCustomerEntity(CustomerInsertDTO customerInsertDTO) {
         Customer customer = new Customer();
         customer.setDiscountCardNumber(customerInsertDTO.getDiscountCardNumber());
+        customer.setId(customerInsertDTO.getId());
 
         User user = mapToUserEntity(customerInsertDTO.getUser());
         user.setRole(Role.CUSTOMER);

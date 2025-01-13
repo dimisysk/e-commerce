@@ -25,6 +25,7 @@ public class EntityToDtoMapper {
 
         return UserReadOnlyDTO.builder()
                 .id(user.getId())
+                .username(user.getUsername())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .ssn(user.getSsn())
@@ -35,6 +36,7 @@ public class EntityToDtoMapper {
                 .city(user.getCity())
                 .zip(user.getZip())
                 .gender(user.getGender())
+                .isActive(user.getIsActive())
                 .role(user.getRole())
                 .build();
     }
@@ -44,6 +46,7 @@ public class EntityToDtoMapper {
         UserReadOnlyDTO userDTO = mapToUserReadOnlyDTO(customer.getUser());
         return CustomerReadOnlyDTO.builder()
                 .user(userDTO)
+                .id(customer.getId())
                 .discountCardNumber(customer.getDiscountCardNumber())
                 .build();
     }

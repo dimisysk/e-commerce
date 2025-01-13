@@ -57,11 +57,11 @@ public class ProductService {
         product.setIsAvailable(productInsertDTO.getIsAvailable());
         product.setQuantity(productInsertDTO.getQuantity());
         product.setPrice(productInsertDTO.getPrice());
-        product.setImageName(productInsertDTO.getImageName());
+//        product.setImageName(productInsertDTO.getImageName());
         // Εικόνα (imageData) αν υπάρχει στο DTO
-        if (productInsertDTO.getImageData() != null) {
-            product.setImageData(productInsertDTO.getImageData());
-        }
+//        if (productInsertDTO.getImageData() != null) {
+//            product.setImageData(productInsertDTO.getImageData());
+//        }
 
         Product updatedProduct = productRepository.save(product);
         return productMapper.mapToProductReadOnlyDTO(updatedProduct);

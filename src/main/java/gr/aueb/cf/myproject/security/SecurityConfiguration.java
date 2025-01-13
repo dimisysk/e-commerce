@@ -44,6 +44,7 @@ public class SecurityConfiguration {
                 .exceptionHandling(exceptions -> exceptions.accessDeniedHandler(myCustomAccessDeniedHandler()))
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers("/api/customers/create").permitAll()
+                        .requestMatchers("/api/customers").permitAll()
                         .requestMatchers("/api/check-duplicate-username").permitAll()
                         .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/auth/authenticate").permitAll()

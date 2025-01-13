@@ -85,7 +85,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public List<Customer> getTeachers() {
+    public List<Customer> getCustomers() {
         return customerRepository.findAll();
     }
 
@@ -105,18 +105,49 @@ public class CustomerService {
 
     private Specification<Customer> getSpecsFromFilters(CustomerFilters filters) {
         return Specification
-                .where(CustomerSpecification.customerStringFieldLike("uuid", filters.getUuid()))
+                .where(CustomerSpecification.customerStringFieldLike("lastName", filters.getLastName()))
                 .and(CustomerSpecification.customerUserGenderIs(filters.getUserGender()))
                 .and(CustomerSpecification.customerUserSsnIs(filters.getUserSsn()))
                 .and(CustomerSpecification.customerUserIsActive(filters.getActive()));
     }
 
-    public void deleteCustomer(Long id) {
-        return;
+    @Transactional
+    public void deleteCustomer(Long id) throws AppObjectNotFoundException {
+        if (!customerRepository.existsById(id)) {
+            throw new AppObjectNotFoundException("Customer", "Customer not found with ID: " + id);
+        }
+        customerRepository.deleteById(id);
     }
-    public CustomerReadOnlyDTO updateCustomer(Long id, CustomerInsertDTO customerDTO) {
-        return null;
+
+    @Transactional
+    public CustomerReadOnlyDTO updateCustomer(Long id, CustomerInsertDTO customerDTO) throws AppObjectNotFoundException {
+        // Εύρεση υπάρχοντος πελάτη
+        Customer existingCustomer = customerRepository.findById(id)
+                .orElseThrow(() -> new AppObjectNotFoundException("Customer", "Customer not found with ID: " + id));
+
+        // Ενημέρωση πεδία του πελάτη
+        existingCustomer.setDiscountCardNumber(customerDTO.getDiscountCardNumber());
+        existingCustomer.getUser().setIsActive(customerDTO.getUser().getIsActive());
+        existingCustomer.getUser().setFirstName(customerDTO.getUser().getFirstName());
+        existingCustomer.getUser().setLastName(customerDTO.getUser().getLastName());
+        existingCustomer.getUser().setEmail(customerDTO.getUser().getEmail());
+        existingCustomer.getUser().setPhone(customerDTO.getUser().getPhone());
+        existingCustomer.getUser().setAddress(customerDTO.getUser().getAddress());
+        existingCustomer.getUser().setAddressNumber(customerDTO.getUser().getAddressNumber());
+        existingCustomer.getUser().setCity(customerDTO.getUser().getCity());
+        existingCustomer.getUser().setZip(customerDTO.getUser().getZip());
+        existingCustomer.getUser().setGender(customerDTO.getUser().getGender());
+        existingCustomer.getUser().setRole(customerDTO.getUser().getRole());
+
+        if (customerDTO.getUser().getPassword() != null && !customerDTO.getUser().getPassword().isEmpty()) {
+            existingCustomer.getUser().setPassword(passwordEncoder.encode(customerDTO.getUser().getPassword()));
+        }
+
+        Customer updatedCustomer = customerRepository.save(existingCustomer);
+
+        return entityToDtoMapper.mapToCustomerReadOnlyDTO(updatedCustomer);
     }
+
 
     public UserReadOnlyDTO getCustomerById(Long id) throws AppObjectNotFoundException {
         // Βρες τον χρήστη μέσω του ID

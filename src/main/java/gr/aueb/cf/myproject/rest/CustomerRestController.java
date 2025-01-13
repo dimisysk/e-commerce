@@ -95,8 +95,8 @@ public class CustomerRestController {
 
 
 
-    @PostMapping("/customers/all")
-    public ResponseEntity<List<CustomerReadOnlyDTO>> getTeachers(@Nullable @RequestBody CustomerFilters filters, Principal principal)
+    @PostMapping("/all")
+    public ResponseEntity<List<CustomerReadOnlyDTO>> getCustomers(@Nullable @RequestBody CustomerFilters filters, Principal principal)
             throws AppObjectNotFoundException, AppObjectNotAuthorizedException {
         try {
             if (filters == null) filters = CustomerFilters.builder().build();
